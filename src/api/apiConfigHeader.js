@@ -1,7 +1,6 @@
 import Cookies from 'js-cookie'
-const tokendata =()=>{
-    const  token  =  Cookies.get('cookielogin')
-    return token
-}
-axiosconfig.defaults.headers.common = {'Authorization': `bearer ${tokendata}`}
-export default axiosconfig;
+import axios from 'axios';
+axios.defaults.baseURL = 'http://localhost:5000/'
+const  token  =  Cookies.get('cookielogin')
+axios.defaults.headers.common = {'Authorization': `bearer ${token}`}
+export default axios;

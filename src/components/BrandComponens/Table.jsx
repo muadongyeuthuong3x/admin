@@ -13,7 +13,8 @@ import "./Table.css";
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
-
+import {creatBrand} from "../../api/apiClient"
+import axios from "axios";
 const style = {
   position: 'absolute',
   top: '50%',
@@ -81,6 +82,7 @@ export default function BasicTable() {
     img: null,
   });
 
+  
 
   const targetupload = useRef(null);
   const handleUpload = (e) => {
@@ -94,11 +96,30 @@ export default function BasicTable() {
   };
   const [form , setForm] = useState({
     brandName	:'',
-    
+    slug:'',
   })
+  const onChangInput = (e) => {
+    var target = e.target;
+    var name = target.name;
+    var value = target.value;
+
+    setForm({ ...form, [name]: value });
+  };
 
   const formDataUploadServer = async()=>{
-     
+      try {
+
+       const data = {
+         image:"https://res.cloudinary.com/oke-nhe/image/upload/e_improve,w_300,h_600,c_thumb,g_auto/v1613809307/Screenshot_279_lian0d.png",
+         brandName:form.brandName,
+         slug:form.slug
+       }
+       
+       await creatBrand(data)
+
+      } catch (error) {
+        
+      }
   }
   return (
       <div className="TableBrand">
@@ -160,6 +181,9 @@ export default function BasicTable() {
           multiline
           variant="standard"
          className="inputBrand"
+         name="brandName"
+         value={form.brandName}
+         onChange={onChangInput}
         />
 
 <TextField
@@ -169,6 +193,9 @@ export default function BasicTable() {
           multiline
           variant="standard"
           className="inputBrand"
+          name="slug"
+         value={form.slug}
+         onChange={onChangInput}
         />
 
       <div  className="textimageBrand"> Ảnh brand : </div>
@@ -192,7 +219,7 @@ export default function BasicTable() {
             <div className="groupButtonBrand"> 
              <div  onClick={handleClose}> 
             <Button variant="contained" variant="outlined" >Hủy Tạo</Button> </div>
-            <div>   <Button variant="contained" >Tạo mới</Button> </div>
+            <div>   <Button variant="contained" onClick={formDataUploadServer} >Tạo mới</Button> </div>
             </div>
           
         </Box>
