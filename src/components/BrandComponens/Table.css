@@ -1,0 +1,80 @@
+.MuiTableRow-root > * {
+  padding: 10px;
+}
+
+.MuiTableRow-root.MuiTableRow-head > * {
+  font-weight: bold !important;
+}
+.TableBrand{
+  width:85%
+}
+.brandCreate{
+  margin-bottom: 40px;
+}
+.TableBrand > h3 {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.TableBrand td,
+th {
+  border: none !important;
+}
+
+.TableBrand:first-child {
+  border-radius: 0.7rem !important;
+}
+.status {
+  padding: 8px;
+  border-radius: 9px;
+}
+
+.Details {
+  color: #00b5ff !important;
+}
+
+@media screen and (max-width: 1200px) {
+  .Table {
+    width: 170%;
+    margin-top: 2rem;
+  }
+}
+
+
+@media screen and (max-width: 768px) {
+  .Table{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 23rem;
+  }
+}
+.inputBrand{
+  width: 100%;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+.textimageBrand{
+  margin-top: 10px;
+}
+.imgbrand{
+  width: 100%;
+  height: 200px;
+  background: wheat;
+  
+}
+.imgbrand  img {
+  width: 100%;
+  height: 100%;
+}
+.inputImage {
+  display: none;
+}
+.groupButtonBrand{
+  display: flex;
+   justify-content: right;
+   margin-top: 20px;
+}
+.groupButtonBrand > div:first-child {
+  margin-right: 10px;
+}
