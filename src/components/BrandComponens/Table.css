@@ -78,3 +78,19 @@ th {
 .groupButtonBrand > div:first-child {
   margin-right: 10px;
 }
+.imgavatarbrand{
+  height: 50px;
+  width: 50px;
+}
+.groupIcon{
+  display: flex;
+}
+.icondelete{
+  color: red;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.iconedit{
+  color: green;
+  cursor: pointer;
+}

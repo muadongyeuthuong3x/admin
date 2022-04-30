@@ -6,3 +6,21 @@ export const creatBrand = async(data)=>{
   return res;
 }
 
+
+export const getBrand = async()=>{
+  const res = await axios.get("http://localhost:5000/api/brand/all", {headers: {Authorization: `Bearer ${token}`} })
+   return res;
+ }
+ 
+ 
+ export const deleteBrandApi = async(id)=>{
+  const res = await axios.delete(`http://localhost:5000/api/brand/delete/${id}`, {headers: {Authorization: `Bearer ${token}`} })
+   return res;
+ }
+ 
+  
+ export const editBrandApi = async(id)=>{
+  const res = await axios.get(`http://localhost:5000/api/brand/${id}`, {headers: {Authorization: `Bearer ${token}`} })
+   return res;
+ }
+ 

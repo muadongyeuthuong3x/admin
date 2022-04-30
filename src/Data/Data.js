@@ -21,7 +21,7 @@ import img3 from "../imgs/img3.png";
 export const SidebarData = [
   {
     icon: UilEstate,
-    heading: "Dashboard",
+    heading: "Brand",
   },
   {
     icon: UilClipboardAlt,
