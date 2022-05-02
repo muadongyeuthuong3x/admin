@@ -23,7 +23,7 @@ const Sidebar = () => {
        // setSelected(index)
         break;
       case 1:
-        navigate("/product");
+        navigate("/type");
       
         break;
       default:

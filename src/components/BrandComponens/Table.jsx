@@ -15,8 +15,8 @@ import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 import EditSharpIcon from '@mui/icons-material/EditSharp';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import { creatBrand, getBrand, deleteBrandApi, editBrandApi } from "../../api/apiClient"
-import axios from "axios";
+import { creatBrand, getBrand, deleteBrandApi, editBrandApi, updateBrandApi } from "../../api/apiClient"
+import { ToastContainer, toast } from 'react-toastify';
 import { imageUpload } from "../../helper/imageUpload";
 const style = {
   position: 'absolute',
@@ -52,7 +52,7 @@ export default function BasicTable() {
     try {
       callApiList()
     } catch (error) {
-
+      toast.error(error.response.data.message)
     }
 
   }, [callList])
@@ -60,62 +60,37 @@ export default function BasicTable() {
   const [baseImage, setBaseImage] = useState({
     img: null,
   });
-   const [fileUp , setFileUp] = useState()
+  const [fileUp, setFileUp] = useState()
   const targetupload = useRef(null);
-  
-  // tai code
-  
+  //image
   const handleChangeImages = e => {
     const files = [...e.target.files]
     let err = ""
     let newImages = []
-
     files.forEach(file => {
-        if(!file) return err = "File does not exist."
+      if (!file) return err = "File does not exist."
 
-        if(file.size > 1024 * 1024 * 5){
-            return err = "The image largest is 5mb."
-        }
+      if (file.size > 1024 * 1024 * 5) {
+        return err = "The image largest is 5mb."
+      }
 
-        return newImages.push(file)
+      return newImages.push(file)
     })
-
-    if(err) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setBaseImage({ img: reader.result });
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+    if (err) {
       console.log("err roi nhe!")
     }
     setImages([...images, ...newImages])
-}
+  }
 
-  // const handleUpload = (e) => {
-  //   const reader = new FileReader();
-  //   console.log(e.target.files)
-    
-  //   // tai code
-  //   const formData= new FormData();
-  //   formData.append("file", e.target.files[0])
-  //   formData.append("upload_preset", "pcfn6h3b")
-  //   formData.append("cloud_name", "dueyjeqd5")
-  //   // axios.post(
-  //   //   "https://api.cloudinary.com/v1_1/dueyjeqd5/image/upload",
-  //   //   formData 
-  //   // ).then((res)=>{
-  //   //   console.log(res)
-  //   // })
-  //   const res = await fetch("https://api.cloudinary.com/v1_1/dueyjeqd5/image/upload", {
-  //     method: "POST",
-  //     body: formData
-  // })
-  // console.log(res)
-  //   // end tai code
+  //bsse create
 
-  //   setFileUp((e.target.files[0]))
-  //   reader.onload = () => {
-  //     if (reader.readyState === 2) {
-  //       setBaseImage({ img: reader.result });
-  //     }
-  //   };
-  //   reader.readAsDataURL(e.target.files[0]);
-  // };
   const [form, setForm] = useState({
     brandName: '',
     slug: '',
@@ -124,32 +99,36 @@ export default function BasicTable() {
     var target = e.target;
     var name = target.name;
     var value = target.value;
-
     setForm({ ...form, [name]: value });
   };
-    
+
+  //end
+
+
 
   const formDataUploadServer = async () => {
-    const res = await imageUpload(images);
-    console.log(res)
-    // try {
-      
-    //   const data = {
-    //     image: "https://res.cloudinary.com/oke-nhe/image/upload/e_improve,w_300,h_600,c_thumb,g_auto/v1613809307/Screenshot_279_lian0d.png",
-    //     brandName: form.brandName,
-    //     slug: form.slug
-    //   }
-     
-    //   const dataImage: any = new FormData();
-    //   dataImage.append("file" , fileUp)
-    //   dataImage.append("upload_preset","g4prsuzo")
-    //  const resImage = await axios.post("https://api.cloudinary.com/v1_1/oke-nhe/image/upload",dataImage)
-    //  console.log(resImage)
-    //   await creatBrand(data)
-    //   setCallList(!callList)
-    // } catch (error) {
 
-    // }
+    try {
+
+      if ((form.brandName).length > 1 && (form.slug).length > 1) {
+
+        const res = await imageUpload(images);
+        const data = {
+          image: res[0].url,
+          brandName: form.brandName,
+          slug: form.slug
+        }
+        await creatBrand(data)
+        setBaseImage('')
+        toast.success("Tạo brand thành công")
+        setCallList(!callList)
+        setOpen(false)
+      } else {
+        toast.error("Tất cả các trường phải có")
+      }
+    } catch (error) {
+      toast.error(error)
+    }
   }
 
   const [id, setId] = useState()
@@ -166,6 +145,7 @@ export default function BasicTable() {
       await deleteBrandApi(id)
       setOpenDelete(false)
       setCallList(!callList)
+      toast.success("Xóa brand thành công")
     } catch (error) {
 
     }
@@ -174,34 +154,74 @@ export default function BasicTable() {
 
   //
 
+  const [dataEdit, setDataEdit] = useState({
+    brandName: '',
+    slug: '',
+    image: '',
+    id:id
+  })
   const [openEdit, setOpenEdit] = useState(false)
   const openEditRow = async (id) => {
     try {
       setOpenEdit(true)
       setId(id)
-      await editBrandApi(id)
+      const data = await editBrandApi(id)
+      setDataEdit({
+        brandName: data.data.brand.brandName,
+        slug: data.data.brand.slug,
+        image: data.data.brand.image,
+        id:id
+      })
     } catch (error) {
 
     }
 
-  } 
+  }
 
-  const [formEdit ,setFormEdit] = useState()
-
-  const onChangInputEdit =(e)=>{
+  const onChangInputEdit = (e) => {
     var target = e.target;
     var name = target.name;
     var value = target.value;
-    setForm({ ...formEdit, [name]: value });
+    setDataEdit({ ...dataEdit, [name]: value });
   }
   const handleCloseEdit = () => {
     setOpenEdit(false)
   }
   const formEditDataUploadServer = async () => {
+    console.log(baseImage)
     try {
-      await deleteBrandApi(id)
-      setOpenDelete(false)
-      setCallList(!callList)
+      if (baseImage.img !=null &&(dataEdit.brandName).length > 1 && (dataEdit.slug).length > 1) {
+        const res = await imageUpload(images);
+        const data = {
+          image: res[0].url,
+          brandName: dataEdit.brandName,
+          slug: dataEdit.slug,
+          id:id
+        }
+        await updateBrandApi(data)
+        setBaseImage('')
+        toast.success("Sửa brand thành công")
+        setOpenEdit(false)
+        setCallList(!callList)
+      }
+      else if((dataEdit.brandName).length > 1 && (dataEdit.slug).length > 1) {
+        const data = {
+          image: dataEdit.image,
+          brandName: dataEdit.brandName,
+          slug: dataEdit.slug,
+          id:id
+        }
+        await updateBrandApi(data)
+        setBaseImage('')
+        toast.success("Sửa brand thành công")
+        setOpenEdit(false)
+        setCallList(!callList)
+      }
+      else {
+        toast.error("Tất cả các trường phải có")
+      }
+
+
     } catch (error) {
 
     }
@@ -210,55 +230,61 @@ export default function BasicTable() {
 
   return (
     <div className="TableBrand">
-      <h3>Brands</h3>
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        closeOnClick />
       <div className="brandCreate" onClick={handleOpen}>
         <Button variant="contained" >Thêm Brand</Button>
       </div>
 
-      <TableContainer
-        component={Paper}
-        style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
-      >
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>brand Name</TableCell>
-              <TableCell align="left">Slug</TableCell>
-              <TableCell align="left">Avatar</TableCell>
-              <TableCell align="left">Date</TableCell>
-              <TableCell align="left">Status</TableCell>
+
+      <div className="TableBrandScroll">
+        <TableContainer
+          component={Paper}
+          style={{ boxShadow: "0px 13px 20px 0px #80808029" }}
+        >
+          <Table sx={{ minWidth: 650 }} aria-label="simple table">
+            <TableHead>
+              <TableRow>
+                <TableCell>brand Name</TableCell>
+                <TableCell align="left">Slug</TableCell>
+                <TableCell align="left">Avatar</TableCell>
+                <TableCell align="left">Date</TableCell>
+                <TableCell align="left">Status</TableCell>
 
 
-            </TableRow>
-          </TableHead>
-          <TableBody style={{ color: "white" }}>
-            {!!dataList && dataList.map((row) => (
-              <TableRow
-                key={row.id}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {row.brandName}
-                </TableCell>
-                <TableCell align="left">{row.slug}</TableCell>
-
-                <TableCell align="left"><img src={row.image} alt="error" className="imgavatarbrand" /></TableCell>
-                <TableCell align="left"> {(row.createdAt).slice(0, 10)}  </TableCell>
-
-                <TableCell align="left">
-                  <div className="groupIcon">
-                    <DeleteForeverIcon className="icondelete" onClick={() => openDeleteRow(row.id)} />
-                    < EditSharpIcon className="iconedit" onClick={() => openEditRow(row.id)} />
-                  </div>
-                </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-      <Stack spacing={2}>
+            </TableHead>
+            <TableBody style={{ color: "white" }}>
+              {!!dataList && dataList.map((row) => (
+                <TableRow
+                  key={row.id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell component="th" scope="row">
+                    {row.brandName}
+                  </TableCell>
+                  <TableCell align="left">{row.slug}</TableCell>
+
+                  <TableCell align="left"><img src={row.image} alt="error" className="imgavatarbrand" /></TableCell>
+                  <TableCell align="left"> {(row.createdAt).slice(0, 10)}  </TableCell>
+
+                  <TableCell align="left">
+                    <div className="groupIcon">
+                      <DeleteForeverIcon className="icondelete" onClick={() => openDeleteRow(row.id)} />
+                      < EditSharpIcon className="iconedit" onClick={() => openEditRow(row.id)} />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+      {/* <Stack spacing={2}>
         <Pagination count={10} color="primary" />
-      </Stack>
+      </Stack> */}
 
 
       {/* Create */}
@@ -308,9 +334,9 @@ export default function BasicTable() {
           </div>
           <input
             ref={targetupload}
-            type="file" 
+            type="file"
             multiple
-            accept="image/*" 
+            accept="image/*"
             onChange={handleChangeImages}
             // onChange={(e) => handleUpload(e)}
             className="inputImage"
@@ -331,7 +357,7 @@ export default function BasicTable() {
 
       <Modal
         open={openEdit}
-        onClose={handleCloseDelete}
+        onClose={handleCloseEdit}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"
       >
@@ -346,7 +372,7 @@ export default function BasicTable() {
             variant="standard"
             className="inputBrand"
             name="brandName"
-            value={form.brandName}
+            value={dataEdit.brandName}
             onChange={onChangInputEdit}
           />
 
@@ -358,21 +384,41 @@ export default function BasicTable() {
             variant="standard"
             className="inputBrand"
             name="slug"
-            value={form.slug}
+            value={dataEdit.slug}
             onChange={onChangInputEdit}
           />
 
           <div className="textimageBrand"> Ảnh brand cũ : </div>
           <div
             className="imgbrand"
+          >
+            <img src={dataEdit.image} width="100" height="100" />
+          </div>
+
+          <div className="textimageBrand"> Ảnh brand mới : </div>
+          <div
+            className="imgbrand"
             onClick={() => targetupload.current.click()}
           >
-            <img src={baseImage.img} width="100" height="100" />
+            {baseImage.img === null ? (
+              ""
+            ) : (
+              <img src={baseImage.img} width="100" height="100" />
+            )}
           </div>
+          <input
+            ref={targetupload}
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={handleChangeImages}
+            // onChange={(e) => handleUpload(e)}
+            className="inputImage"
+          />
 
           <div className="groupButtonBrand">
             <div >
-              <Button variant="contained" variant="outlined" onClick={handleCloseDelete}>Hủy Sửa</Button> </div>
+              <Button variant="contained" variant="outlined" onClick={handleCloseEdit}>Hủy Sửa</Button> </div>
             <div>   <Button variant="contained" onClick={formEditDataUploadServer} >Đồng ý</Button> </div>
           </div>
 
@@ -384,7 +430,7 @@ export default function BasicTable() {
       {/* xoa */}
 
       <Modal
-        open={openEdit}
+        open={openDelete}
         onClose={handleCloseDelete}
         aria-labelledby="parent-modal-title"
         aria-describedby="parent-modal-description"

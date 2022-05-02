@@ -8,8 +8,13 @@
 .TableBrand{
   width:85%
 }
+.TableBrandScroll{
+  height: 500px;
+  overflow: scroll;
+}
 .brandCreate{
-  margin-bottom: 40px;
+  margin-bottom: 20px;
+  margin-top: 20px;
 }
 .TableBrand > h3 {
   margin-top: 40px;

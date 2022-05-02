@@ -3,6 +3,7 @@ import BrandComponens from "./components/BrandComponens/index"
 import Product from './components/Product';
 import Login from './components/Login/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import Cookies from "js-cookie";
 import {
   BrowserRouter,
@@ -10,6 +11,7 @@ import {
   Route,
   Navigate
 } from "react-router-dom";
+import TypeComponent from "./components/TypeComponent/index"
 function App() {
 
   const token = Cookies.get("cookieLogin")
@@ -24,6 +26,7 @@ function App() {
             {
               token ? <>  
                 <Route path="/brand" exact  element={<BrandComponens />} />
+                <Route path="/type" exact element={<TypeComponent />} />
                 <Route path="/product" exact element={<Product />} />
                 </> 
                 :    <Route
