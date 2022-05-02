@@ -29,7 +29,7 @@ export const SidebarData = [
   },
   {
     icon: UilUsersAlt,
-    heading: "Customers",
+    heading: "Product",
   },
   {
     icon: UilPackage,

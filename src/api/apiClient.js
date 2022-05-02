@@ -54,3 +54,19 @@ export const getBrand = async()=>{
   const res = await axios.post(`http://localhost:5000/api/type/update`,body, {headers: {Authorization: `Bearer ${token}`} })
    return res;
  }
+
+ export const getProduct = async()=>{
+  const res = await axios.get("http://localhost:5000/api/product/all", {headers: {Authorization: `Bearer ${token}`} })
+   return res;
+ }
+
+ export const postProduct = async(body)=>{
+  const res = await axios.post("http://localhost:5000/api/product/create", body ,{headers: {Authorization: `Bearer ${token}`} })
+   return res;
+ }
+
+
+ export const deleteProductApi = async(id)=>{
+  const res = await axios.delete(`http://localhost:5000/api/product/delete/${id}`, {headers: {Authorization: `Bearer ${token}`} })
+   return res;
+ }

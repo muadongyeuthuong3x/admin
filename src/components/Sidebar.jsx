@@ -24,11 +24,12 @@ const Sidebar = () => {
         break;
       case 1:
         navigate("/type");
-      
         break;
+        case 2:
+          navigate("/product");
+          break;
       default:
         navigate("/brand");
-        
         break;
     }
   }
