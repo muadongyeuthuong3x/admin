@@ -14,6 +14,7 @@ import {
 import TypeComponent from "./components/TypeComponent/index"
 import Size from "./components/Size/index"
 import User from "./components/User/index"
+import Blog from './components/Blog';
 function App() {
 
   const token = Cookies.get("cookieLogin")
@@ -31,6 +32,7 @@ function App() {
                 <Route path="/type" exact element={<TypeComponent />} />
                 <Route path="/size" exact element={<Size />} />
                 <Route path="/user" exact element={<User />} />
+                <Route path="/blog" exact element={<Blog />} />
                 {/* <Route path="/product" exact element={<Product />} /> */}
                 </> 
                 :    <Route

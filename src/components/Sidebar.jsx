@@ -25,16 +25,21 @@ const Sidebar = () => {
       case 1:
         navigate("/type");
         break;
-        case 2:
-          navigate("/size");
-          break;
+      case 2:
+        navigate("/size");
         break;
-        case 3:
-          navigate("/product");
-          break;
-          case 4:
-            navigate("/user");
-            break;
+      case 3:
+        navigate("/product");
+        break;
+      case 3:
+        navigate("/product");
+        break;
+      case 4:
+        navigate("/user");
+        break;
+      case 5:
+        navigate("/blog");
+        break;
       default:
         navigate("/brand");
         break;
