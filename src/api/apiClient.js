@@ -100,7 +100,6 @@ export const getBrand = async()=>{
     return res;
   }
 
-<<<<<<< Updated upstream
   // user
 
 
@@ -113,9 +112,7 @@ export const getBrand = async()=>{
     const res = await axios.get(`http://localhost:5000/api/auth/list-user`, {headers: {Authorization: `Bearer ${token}`} })
      return res;
    }
-=======
   export const createBlog = async(body)=>{
    const res = await axios.post(`http://localhost:5000/api/blog/create`,body, {headers: {Authorization: `Bearer ${token}`} })
     return res;
   }
->>>>>>> Stashed changes
