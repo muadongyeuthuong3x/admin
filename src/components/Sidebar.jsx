@@ -29,9 +29,12 @@ const Sidebar = () => {
           navigate("/size");
           break;
         break;
-        case 2:
+        case 3:
           navigate("/product");
           break;
+          case 4:
+            navigate("/user");
+            break;
       default:
         navigate("/brand");
         break;

@@ -37,7 +37,7 @@ export const SidebarData = [
   },
   {
     icon: UilPackage,
-    heading: 'Products'
+    heading: 'User'
   },
   {
     icon: UilChart,

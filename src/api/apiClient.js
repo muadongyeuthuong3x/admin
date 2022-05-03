@@ -99,3 +99,16 @@ export const getBrand = async()=>{
    const res = await axios.post(`http://localhost:5000/api/size/update`,body, {headers: {Authorization: `Bearer ${token}`} })
     return res;
   }
+
+  // user
+
+
+  export const activeApi = async(body)=>{
+    const res = await axios.post(`http://localhost:5000/api/auth/active`,body, {headers: {Authorization: `Bearer ${token}`} })
+     return res;
+   }
+  
+   export const getUserApi = async()=>{
+    const res = await axios.get(`http://localhost:5000/api/auth/list-user`, {headers: {Authorization: `Bearer ${token}`} })
+     return res;
+   }
