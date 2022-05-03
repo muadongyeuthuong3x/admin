@@ -26,6 +26,10 @@ const Sidebar = () => {
         navigate("/type");
         break;
         case 2:
+          navigate("/size");
+          break;
+        break;
+        case 2:
           navigate("/product");
           break;
       default:

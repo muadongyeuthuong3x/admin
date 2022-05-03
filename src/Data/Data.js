@@ -28,6 +28,10 @@ export const SidebarData = [
     heading: "Type",
   },
   {
+    icon: UilClipboardAlt,
+    heading: "Size",
+  },
+  {
     icon: UilUsersAlt,
     heading: "Product",
   },

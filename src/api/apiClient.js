@@ -70,3 +70,32 @@ export const getBrand = async()=>{
   const res = await axios.delete(`http://localhost:5000/api/product/delete/${id}`, {headers: {Authorization: `Bearer ${token}`} })
    return res;
  }
+
+ ///size
+ export const creatSizeApi = async(data)=>{
+  const res = await axios.post("http://localhost:5000/api/size/create", data , {headers: {Authorization: `Bearer ${token}`} })
+   return res;
+ }
+ 
+ 
+ export const getSizeApi = async()=>{
+   const res = await axios.get("http://localhost:5000/api/size/all", {headers: {Authorization: `Bearer ${token}`} })
+    return res;
+  }
+  
+  
+  export const deleteSizeApi = async(id)=>{
+   const res = await axios.delete(`http://localhost:5000/api/size/delete/${id}`, {headers: {Authorization: `Bearer ${token}`} })
+    return res;
+  }
+  
+   
+  export const editSizeApi = async(id)=>{
+   const res = await axios.get(`http://localhost:5000/api/size/${id}`, {headers: {Authorization: `Bearer ${token}`} })
+    return res;
+  }
+ 
+  export const updateSizeApi = async(body)=>{
+   const res = await axios.post(`http://localhost:5000/api/size/update`,body, {headers: {Authorization: `Bearer ${token}`} })
+    return res;
+  }

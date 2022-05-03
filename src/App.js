@@ -12,6 +12,7 @@ import {
   Navigate
 } from "react-router-dom";
 import TypeComponent from "./components/TypeComponent/index"
+import Size from "./components/Size/index"
 function App() {
 
   const token = Cookies.get("cookieLogin")
@@ -27,7 +28,8 @@ function App() {
               token ? <>  
                 <Route path="/brand" exact  element={<BrandComponens />} />
                 <Route path="/type" exact element={<TypeComponent />} />
-                <Route path="/product" exact element={<Product />} />
+                <Route path="/size" exact element={<Size />} />
+                {/* <Route path="/product" exact element={<Product />} /> */}
                 </> 
                 :    <Route
                 path="*"
