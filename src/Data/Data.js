@@ -40,10 +40,19 @@ export const SidebarData = [
     heading: 'User'
   },
   {
+    icon: UilPackage,
+    heading: 'Voucher'
+  },
+  {
+    icon: UilPackage,
+    heading: 'Invoices'
+  },
+  {
     icon: UilChart,
     heading: 'Analytics'
   },
 ];
+
 
 // Analytics Cards Data
 export const cardsData = [

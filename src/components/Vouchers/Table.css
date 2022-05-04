@@ -1,0 +1,112 @@
+.MuiTableRow-root > * {
+    padding: 10px;
+  }
+  
+  .MuiTableRow-root.MuiTableRow-head > * {
+    font-weight: bold !important;
+  }
+  .TableBrand{
+    width:85%
+  }
+  .TableBrandScroll{
+    height: 500px;
+    overflow: scroll;
+  }
+  .brandCreate{
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+  .TableBrand > h3 {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  .TableBrand td,
+  th {
+    border: none !important;
+  }
+  
+  .TableBrand:first-child {
+    border-radius: 0.7rem !important;
+  }
+  .status {
+    padding: 8px;
+    border-radius: 9px;
+  }
+  
+  .Details {
+    color: #00b5ff !important;
+  }
+  
+  @media screen and (max-width: 1200px) {
+    .Table {
+      width: 170%;
+      margin-top: 2rem;
+    }
+  }
+  
+  
+  @media screen and (max-width: 768px) {
+    .Table{
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 23rem;
+    }
+  }
+  .inputBrand{
+    width: 100%;
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  .textimageBrand{
+    margin-top: 20px;
+  }
+  .imgbrand{
+    width: 100%;
+    height: 200px;
+    background: wheat;
+    
+  }
+  .imgbrand  img {
+    width: 100%;
+    height: 100%;
+  }
+  .inputImage {
+    display: none;
+  }
+  .groupButtonBrand{
+    display: flex;
+     justify-content: right;
+     margin-top: 20px;
+  }
+  .groupButtonBrand > div:first-child {
+    margin-right: 10px;
+  }
+  .imgavatarbrand{
+    height: 50px;
+    width: 50px;
+  }
+  .groupIcon{
+    display: flex;
+  }
+  .icondelete{
+    color: red;
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  .iconedit{
+    color: green;
+    cursor: pointer;
+  }
+  .optionBrand{
+      width: 100%;
+  }
+  .optionBrand > select{
+      width: 100%;
+  }
+
+  .startDate{
+    width: 100%;
+    margin-top: 10px;
+  }

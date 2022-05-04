@@ -35,6 +35,12 @@ const Sidebar = () => {
           case 4:
             navigate("/user");
             break;
+            case 5:
+              navigate("/voucher");
+              case 6 :
+                navigate("/invoice")
+              break;
+            
       default:
         navigate("/brand");
         break;

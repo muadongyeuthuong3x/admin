@@ -54,6 +54,7 @@ export const getBrand = async()=>{
   const res = await axios.post(`http://localhost:5000/api/type/update`,body, {headers: {Authorization: `Bearer ${token}`} })
    return res;
  }
+ // product
 
  export const getProduct = async()=>{
   const res = await axios.get("http://localhost:5000/api/product/all", {headers: {Authorization: `Bearer ${token}`} })
@@ -64,10 +65,18 @@ export const getBrand = async()=>{
   const res = await axios.post("http://localhost:5000/api/product/create", body ,{headers: {Authorization: `Bearer ${token}`} })
    return res;
  }
-
+  
+ export const editProductApi = async(id)=>{
+  const res = await axios.get(`http://localhost:5000/api/product/${id}`,{headers: {Authorization: `Bearer ${token}`} })
+  return res;
+ }
 
  export const deleteProductApi = async(id)=>{
   const res = await axios.delete(`http://localhost:5000/api/product/delete/${id}`, {headers: {Authorization: `Bearer ${token}`} })
+   return res;
+ }
+ export const updateProductApi = async(body)=>{
+  const res = await axios.post("http://localhost:5000/api/product/update",body, {headers: {Authorization: `Bearer ${token}`} })
    return res;
  }
 
@@ -112,3 +121,66 @@ export const getBrand = async()=>{
     const res = await axios.get(`http://localhost:5000/api/auth/list-user`, {headers: {Authorization: `Bearer ${token}`} })
      return res;
    }
+
+   // vouchers
+
+  
+   export const creatVouchersApi = async(data)=>{
+    const res = await axios.post("http://localhost:5000/api/voucher/create", data , {headers: {Authorization: `Bearer ${token}`} })
+     return res;
+   }
+   
+   
+   export const getVouchersApi = async()=>{
+     const res = await axios.get("http://localhost:5000/api/voucher/all", {headers: {Authorization: `Bearer ${token}`} })
+      return res;
+    }
+    
+    
+    export const deleteVouchersApi = async(id)=>{
+     const res = await axios.delete(`http://localhost:5000/api/voucher/delete/${id}`, {headers: {Authorization: `Bearer ${token}`} })
+      return res;
+    }
+    
+     
+    export const editVouchersApi = async(id)=>{
+     const res = await axios.get(`http://localhost:5000/api/voucher/${id}`, {headers: {Authorization: `Bearer ${token}`} })
+      return res;
+    }
+   
+    export const updateVouchersApi = async(body)=>{
+     const res = await axios.post(`http://localhost:5000/api/voucher/update`,body, {headers: {Authorization: `Bearer ${token}`} })
+      return res;
+    }
+
+    //Invoice
+
+
+
+    export const creatInvoiceApi = async(data)=>{
+      const res = await axios.post("http://localhost:5000/api/invoice/create", data , {headers: {Authorization: `Bearer ${token}`} })
+       return res;
+     }
+     
+     
+     export const getInvoiceApi = async()=>{
+       const res = await axios.get("http://localhost:5000/api/invoice/all", {headers: {Authorization: `Bearer ${token}`} })
+        return res;
+      }
+      
+      
+      export const deleteInvoiceApi = async(id)=>{
+       const res = await axios.delete(`http://localhost:5000/api/invoice/delete/${id}`, {headers: {Authorization: `Bearer ${token}`} })
+        return res;
+      }
+      
+       
+      export const editInvoiceApi = async(id)=>{
+       const res = await axios.get(`http://localhost:5000/api/invoice/${id}`, {headers: {Authorization: `Bearer ${token}`} })
+        return res;
+      }
+     
+      export const updateInvoiceApi = async(body)=>{
+       const res = await axios.post(`http://localhost:5000/api/invoice/update`,body, {headers: {Authorization: `Bearer ${token}`} })
+        return res;
+      }
