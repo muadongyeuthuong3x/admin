@@ -1,0 +1,10 @@
+.rdw-editor-main {
+  margin-bottom: 80px;
+  overflow-y: auto;
+  height: 300px;
+}
+
+.rdw-editor-wrapper{
+  height: 100%;
+
+}

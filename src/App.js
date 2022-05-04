@@ -16,6 +16,7 @@ import Size from "./components/Size/index"
 import User from "./components/User/index"
 import  Vouchers from "./components/Vouchers/index"
 import Invoices from "./components/Invoices/index"
+import Blog from './components/Blog';
 function App() {
 
   const token = Cookies.get("cookieLogin")
@@ -36,6 +37,8 @@ function App() {
                 <Route path="/voucher" exact element={<Vouchers />} />
                 <Route path="/invoice" exact element={<Invoices />} />
                 <Route path="/product" exact element={<Product />} />
+                <Route path="/blog" exact element={<Blog />} />
+                {/* <Route path="/product" exact element={<Product />} /> */}
                 </> 
                 :    <Route
                 path="*"
