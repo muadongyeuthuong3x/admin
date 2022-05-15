@@ -41,15 +41,7 @@ export const SidebarData = [
   },
   {
     icon: UilPackage,
-    heading: 'Voucher'
-  },
-  {
-    icon: UilPackage,
-    heading: 'Invoices'
-  },
-  {
-    icon: UilChart,
-    heading: 'Analytics'
+    heading: 'Blog'
   },
 ];
 

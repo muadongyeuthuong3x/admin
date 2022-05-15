@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import "./Sidebar.css";
 // import '../../src/App.css'
 import Logo from "../imgs/logo.png";
 import { UilSignOutAlt } from "@iconscout/react-unicons";
 import { useNavigate } from 'react-router-dom';
 import { SidebarData } from "../Data/Data";
-import Login from "../components/Login/Login"
+import {
+  useLocation
+} from "react-router-dom";
 import { UilBars } from "@iconscout/react-unicons";
 import { motion } from "framer-motion";
 
@@ -14,13 +16,14 @@ const Sidebar = () => {
   const [selected, setSelected] = useState(0);
   const navigate = useNavigate();
   const [expanded, setExpaned] = useState(true)
-
+  let location = useLocation();
 
   const onChange = (index)=>{
+     console.log(location.pathname)
     switch(index) {
       case 0:
         navigate("/brand");
-       // setSelected(index)
+     
         break;
       case 1:
         navigate("/type");
@@ -31,32 +34,49 @@ const Sidebar = () => {
       case 3:
         navigate("/product");
         break;
-      case 3:
-        navigate("/product");
-        break;
       case 4:
         navigate("/user");
         break;
       case 5:
         navigate("/blog");
         break;
-        case 3:
-          navigate("/product");
-          break;
-          case 4:
-            navigate("/user");
-            break;
-            case 5:
-              navigate("/voucher");
-              case 6 :
-                navigate("/invoice")
-              break;
-            
       default:
         navigate("/brand");
         break;
     }
+
+   
+
   }
+
+  React.useEffect(() => {
+    switch(location.pathname) {
+      case "/brand":
+        setSelected(0)
+        break;
+      case "/type":
+        setSelected(1)
+        break;
+      case "/size":
+        console.log("AAA")
+        setSelected(2)
+        break;
+      case "/product":
+        setSelected(3)
+        break;
+      case "/user":
+        setSelected(4)
+        break;
+      case "/blog":
+        setSelected(5)
+        break;
+      default:
+        setSelected(0)
+        break;
+    }
+  }, [location.pathname]);
+
+
 
   const sidebarVariants = {
     true: {
